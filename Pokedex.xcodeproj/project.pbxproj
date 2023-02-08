@@ -26,9 +26,6 @@
 		80A4554F2993526700DFD458 /* PresentationModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A455372993526700DFD458 /* PresentationModule.swift */; };
 		80A455502993526700DFD458 /* MainViewControllerResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A455382993526700DFD458 /* MainViewControllerResolver.swift */; };
 		80A455512993526700DFD458 /* SingletonScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A4553A2993526700DFD458 /* SingletonScope.swift */; };
-		80A455522993526700DFD458 /* Constans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A4553C2993526700DFD458 /* Constans.swift */; };
-		80A455532993526700DFD458 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A4553D2993526700DFD458 /* UIViewControllerExtensions.swift */; };
-		80A455542993526700DFD458 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A4553F2993526700DFD458 /* RealmHelper.swift */; };
 		80A45556299352DD00DFD458 /* AppComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A45555299352DD00DFD458 /* AppComponent.swift */; };
 		80A4555E2993532400DFD458 /* JsonRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A455592993532400DFD458 /* JsonRequest.swift */; };
 		80A4555F2993532400DFD458 /* MyAFRequest+JsonRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A4555C2993532400DFD458 /* MyAFRequest+JsonRequest.swift */; };
@@ -54,6 +51,9 @@
 		80A45592299375C600DFD458 /* DomainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A45591299375C600DFD458 /* DomainError.swift */; };
 		80A455952993780A00DFD458 /* PokemonTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A455942993780A00DFD458 /* PokemonTableCell.swift */; };
 		80A4559729937A0E00DFD458 /* PokemonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A4559629937A0E00DFD458 /* PokemonDetailViewController.swift */; };
+		80A4559D2993807E00DFD458 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A4559C2993807E00DFD458 /* RealmHelper.swift */; };
+		80A4559F2993809200DFD458 /* Constans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A4559E2993809200DFD458 /* Constans.swift */; };
+		80A455A1299380A600DFD458 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A455A0299380A600DFD458 /* UIViewControllerExtensions.swift */; };
 		80B58DEF29934E530010D5AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B58DEE29934E530010D5AB /* AppDelegate.swift */; };
 		80B58DF129934E530010D5AB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B58DF029934E530010D5AB /* SceneDelegate.swift */; };
 		80B58DF329934E530010D5AB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B58DF229934E530010D5AB /* ViewController.swift */; };
@@ -106,9 +106,6 @@
 		80A455372993526700DFD458 /* PresentationModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationModule.swift; sourceTree = "<group>"; };
 		80A455382993526700DFD458 /* MainViewControllerResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewControllerResolver.swift; sourceTree = "<group>"; };
 		80A4553A2993526700DFD458 /* SingletonScope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingletonScope.swift; sourceTree = "<group>"; };
-		80A4553C2993526700DFD458 /* Constans.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constans.swift; sourceTree = "<group>"; };
-		80A4553D2993526700DFD458 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
-		80A4553F2993526700DFD458 /* RealmHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 		80A45555299352DD00DFD458 /* AppComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppComponent.swift; sourceTree = "<group>"; };
 		80A455592993532400DFD458 /* JsonRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonRequest.swift; sourceTree = "<group>"; };
 		80A4555C2993532400DFD458 /* MyAFRequest+JsonRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MyAFRequest+JsonRequest.swift"; sourceTree = "<group>"; };
@@ -134,6 +131,9 @@
 		80A45591299375C600DFD458 /* DomainError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainError.swift; sourceTree = "<group>"; };
 		80A455942993780A00DFD458 /* PokemonTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonTableCell.swift; sourceTree = "<group>"; };
 		80A4559629937A0E00DFD458 /* PokemonDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailViewController.swift; sourceTree = "<group>"; };
+		80A4559C2993807E00DFD458 /* RealmHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RealmHelper.swift; path = ../../../.perqara/RealmHelper.swift; sourceTree = "<group>"; };
+		80A4559E2993809200DFD458 /* Constans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Constans.swift; path = ../../../.perqara/Constans.swift; sourceTree = "<group>"; };
+		80A455A0299380A600DFD458 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIViewControllerExtensions.swift; path = ../../../.perqara/UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		80B58DEB29934E530010D5AB /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80B58DEE29934E530010D5AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80B58DF029934E530010D5AB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -285,20 +285,12 @@
 		80A4553B2993526700DFD458 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
-				80A4553C2993526700DFD458 /* Constans.swift */,
-				80A4553D2993526700DFD458 /* UIViewControllerExtensions.swift */,
-				80A4553E2993526700DFD458 /* Helper */,
+				80A4559C2993807E00DFD458 /* RealmHelper.swift */,
+				80A4559E2993809200DFD458 /* Constans.swift */,
+				80A455A0299380A600DFD458 /* UIViewControllerExtensions.swift */,
 			);
 			name = Misc;
 			path = ../../perqara/perqara/Misc;
-			sourceTree = "<group>";
-		};
-		80A4553E2993526700DFD458 /* Helper */ = {
-			isa = PBXGroup;
-			children = (
-				80A4553F2993526700DFD458 /* RealmHelper.swift */,
-			);
-			path = Helper;
 			sourceTree = "<group>";
 		};
 		80A455572993532400DFD458 /* Infrastructure */ = {
@@ -763,9 +755,11 @@
 			files = (
 				80A455472993526700DFD458 /* RealmDatabaseModule.swift in Sources */,
 				80A4554F2993526700DFD458 /* PresentationModule.swift in Sources */,
+				80A4559F2993809200DFD458 /* Constans.swift in Sources */,
 				80A4559729937A0E00DFD458 /* PokemonDetailViewController.swift in Sources */,
 				80A455482993526700DFD458 /* MyAPIModule.swift in Sources */,
 				80B58DF329934E530010D5AB /* ViewController.swift in Sources */,
+				80A455A1299380A600DFD458 /* UIViewControllerExtensions.swift in Sources */,
 				80A455672993539000DFD458 /* MyJsonAPI.swift in Sources */,
 				80A455412993526700DFD458 /* InjectorResolver.swift in Sources */,
 				80A45556299352DD00DFD458 /* AppComponent.swift in Sources */,
@@ -778,7 +772,6 @@
 				80A455512993526700DFD458 /* SingletonScope.swift in Sources */,
 				80A4554E2993526700DFD458 /* UIKitModule.swift in Sources */,
 				80A4554B2993526700DFD458 /* UIKitControllerModule.swift in Sources */,
-				80A455542993526700DFD458 /* RealmHelper.swift in Sources */,
 				80A4554A2993526700DFD458 /* DomainModule.swift in Sources */,
 				80A455952993780A00DFD458 /* PokemonTableCell.swift in Sources */,
 				80A4557529935D9A00DFD458 /* MyJsonAPI+GetPokemonDetail.swift in Sources */,
@@ -792,7 +785,6 @@
 				80A455462993526700DFD458 /* DataModule.swift in Sources */,
 				80A4557129935BC900DFD458 /* RemotePokemonDetail.swift in Sources */,
 				80A45580299369AA00DFD458 /* NameSpaceUiKit.swift in Sources */,
-				80A455532993526700DFD458 /* UIViewControllerExtensions.swift in Sources */,
 				80A4556A299355EB00DFD458 /* RemotePokeListEntity.swift in Sources */,
 				80A4555E2993532400DFD458 /* JsonRequest.swift in Sources */,
 				80A455442993526700DFD458 /* MainInjectorResolver.swift in Sources */,
@@ -800,9 +792,9 @@
 				80A455652993538300DFD458 /* NameSpaceData.swift in Sources */,
 				80A45589299372E600DFD458 /* DomainPokemonEntity.swift in Sources */,
 				80A4556D299356CF00DFD458 /* GetPokemonListDataSource.swift in Sources */,
+				80A4559D2993807E00DFD458 /* RealmHelper.swift in Sources */,
 				80A455602993532400DFD458 /* MyAFRequest.swift in Sources */,
 				80A4558B299372FA00DFD458 /* NameSpaceDomain.swift in Sources */,
-				80A455522993526700DFD458 /* Constans.swift in Sources */,
 				80A45582299369CC00DFD458 /* HomeViewController.swift in Sources */,
 				80A455492993526700DFD458 /* NetworkingModule.swift in Sources */,
 				80A45590299373EC00DFD458 /* PokemonRepositoryImpl.swift in Sources */,
