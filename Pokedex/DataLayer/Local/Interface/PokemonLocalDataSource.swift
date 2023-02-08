@@ -15,6 +15,7 @@ protocol PokemonLocalDataSource: AnyObject {
     ) -> Completable
     
     func fetchAll() -> Single<[LocalPokemonEntity]>
+    func fetch(byId: String) -> Single<[LocalPokemonEntity]>
     
     func deleteBy(
         id: String

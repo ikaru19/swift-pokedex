@@ -14,4 +14,5 @@ protocol PokemonDetailViewModel: AnyObject {
     
     func getPokemonDetail(byName: String)
     func insetPokemonToLocal(data: Domain.PokemonEntity)
+    func deletePokemon(byId: String)
 }

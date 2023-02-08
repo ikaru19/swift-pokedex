@@ -158,6 +158,17 @@ extension Presentation.UiKit.FavoriteViewContoller: UITableViewDelegate, UITable
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // TODO: GOTO DETAIL
+        guard let vc = (UIApplication.shared.delegate as? ProvideViewControllerResolver)?.vcResolver.instantiateDetailViewController().get() else {
+            fatalError("View Controller can't be nil: Detail")
+        }
+        vc.data = data[indexPath.row]
+        vc.hidesBottomBarWhenPushed = true
+        vc.isFromLocal = true
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
             if editingStyle == .delete {
                 deletePokemon(byId: data[indexPath.row].id)

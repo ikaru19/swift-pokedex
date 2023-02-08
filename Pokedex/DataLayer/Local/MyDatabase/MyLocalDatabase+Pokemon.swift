@@ -80,4 +80,37 @@ extension MyLocalDatabase: PokemonLocalDataSource {
                     return Disposables.create()
                 })
     }
+    
+    func fetch(byId: String) -> RxSwift.Single<[LocalPokemonEntity]> {
+        Single.create(subscribe: { observer in
+                    do {
+                        var query = try self.fetch(
+                                        NSPredicate(
+                                                format: """
+                                                        id == %@
+                                                        """,
+                                                byId
+                                        )
+                                )
+                        observer(.success(Array(query)))
+                    } catch {
+                        observer(.error(error))
+                    }
+                    return Disposables.create()
+                })
+    }
+}
+
+private extension MyLocalDatabase {
+    private func fetch(_ predicate: NSPredicate) throws -> Results<LocalPokemonEntity> {
+        guard let realm = try? self.instantiate() else {
+            throw RealmError(reason: .cantFetch, line: 16)
+        }
+        realm.refresh()
+
+        let result = realm
+                .objects(LocalPokemonEntity.self)
+                .filter(predicate)
+        return result
+    }
 }

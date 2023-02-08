@@ -15,4 +15,5 @@ protocol PokemonRepository: AnyObject {
     func insertPokemonToLocal(data: Domain.PokemonEntity) -> Completable
     func deletePokemon(byId: String) -> Completable
     func fetchAllLocalPokemon() -> Single<[Domain.PokemonEntity]>
+    func fetchLocalPokemon(byId: String) -> Single<[Domain.PokemonEntity]>
 }

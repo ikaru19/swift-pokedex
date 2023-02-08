@@ -99,6 +99,27 @@ class PokemonRepositoryImpl: PokemonRepository {
             return Disposables.create()
         })
     }
+    
+    func fetchLocalPokemon(byId: String) -> RxSwift.Single<[Domain.PokemonEntity]> {
+        Single.create(subscribe: { [self] observer in
+                localPokemonDataSource
+                .fetch(byId: byId)
+                .subscribe(
+                    onSuccess: { [weak self] data in
+                        if let self = self {
+                            var finalData = self.rawDataMapper(datas: data)
+                            observer(.success(finalData))
+                        }
+                        observer(.error(DomainError(reason: .noData, line: 89)))
+                    },
+                    onError: { error in
+                        observer(.error(error))
+                        
+                    }
+                ).disposed(by: disposeBag)
+            return Disposables.create()
+        })
+    }
 }
 
 extension PokemonRepositoryImpl {
@@ -144,7 +165,10 @@ extension PokemonRepositoryImpl {
         return LocalPokemonEntity(
             id: id,
             name: data.name,
-            image: data.image
+            image: data.image,
+            type: data.types.joined(separator: ","),
+            ability: data.abilities.joined(separator: ","),
+            weight: data.weight ?? "-"
         )
     }
     
@@ -155,8 +179,9 @@ extension PokemonRepositoryImpl {
                 id: data.id,
                 name: data.name,
                 image: data.image,
-                types: [],
-                abilities: []
+                weight: data.weight,
+                types: data.type.components(separatedBy: ","),
+                abilities: data.ability.components(separatedBy: ",")
             )
             finalData.append(pokemon)
         }

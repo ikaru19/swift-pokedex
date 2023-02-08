@@ -27,6 +27,7 @@ extension Presentation.UiKit {
         private var viewModel: PokemonDetailViewModel
         
         var data: Domain.PokemonEntity?
+        var isFromLocal: Bool = false
         
         init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?, viewModel: PokemonDetailViewModel) {
             self.viewModel = viewModel
@@ -53,7 +54,7 @@ extension Presentation.UiKit {
             super.viewDidAppear(animated)
             if let data = data {
                 showActivityIndicator()
-                viewModel.getPokemonDetail(byName: data.name)
+                viewModel.getPokemonDetail(byName: isFromLocal ? data.id: data.name)
             }
         }
         
@@ -92,6 +93,15 @@ extension Presentation.UiKit {
             } else {
                 showRunPopUp()
             }
+        }
+        
+        @objc
+        func onReleasedTapped() {
+            guard let data = data else {
+                return
+            }
+            viewModel.deletePokemon(byId: data.id)
+            navigationController?.popToRootViewController(animated: true)
         }
     }
 }
@@ -144,8 +154,9 @@ private extension Presentation.UiKit.PokemonDetailViewController {
 // MARK: Event
 private extension Presentation.UiKit.PokemonDetailViewController {
     func initEvents() {
-        let tapCatchButton = UITapGestureRecognizer(target: self, action: #selector(onCatchTapped))
-        btCatch?.addGestureRecognizer(tapCatchButton)
+        let buttonTapped = isFromLocal ? UITapGestureRecognizer(target: self, action: #selector(onReleasedTapped)):
+                                         UITapGestureRecognizer(target: self, action: #selector(onCatchTapped))
+        btCatch?.addGestureRecognizer(buttonTapped)
     }
 }
 
@@ -259,8 +270,8 @@ private extension Presentation.UiKit.PokemonDetailViewController {
     func generateButton() -> UIButton {
         let view = UIButton(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.setTitle("Catch", for: .normal)
-        view.backgroundColor = .systemBlue
+        view.setTitle(isFromLocal ? "Release": "Catch", for: .normal)
+        view.backgroundColor = isFromLocal ? .red: .systemBlue
         return view
     }
 }

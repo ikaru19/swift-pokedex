@@ -29,6 +29,24 @@ class PokemonDetailViewModelImpl: PokemonDetailViewModel {
     
     func getPokemonDetail(byName: String) {
         pokemonRepository
+            .fetchLocalPokemon(byId: byName)
+            .subscribe(
+                onSuccess: { [weak self] data in
+                    if let data = data.first {
+                        self?._pokemonData.accept(data)
+                    } else {
+                        self?.getPokemonDetailRemote(byName: byName)
+                    }
+                },
+                onError: { [weak self] error in
+                    self?._errors.accept(error)
+                }
+            )
+            .disposed(by: disposeBag)
+    }
+    
+    func getPokemonDetailRemote(byName: String) {
+        pokemonRepository
             .getPokemon(byName: byName)
             .subscribe(
                 onSuccess: { [weak self] data in
@@ -41,7 +59,6 @@ class PokemonDetailViewModelImpl: PokemonDetailViewModel {
             .disposed(by: disposeBag)
     }
     
-    
     func insetPokemonToLocal(data: Domain.PokemonEntity) {
         pokemonRepository
             .insertPokemonToLocal(data: data)
@@ -52,4 +69,15 @@ class PokemonDetailViewModelImpl: PokemonDetailViewModel {
             )
             .disposed(by: disposeBag)
     }
+    
+    func deletePokemon(byId: String) {
+        pokemonRepository
+            .deletePokemon(byId: byId)
+            .subscribe(
+                onError: { [weak self] error in
+                    self?._errors.accept(error)
+                }
+            ).disposed(by: disposeBag)
+    }
+    
 }

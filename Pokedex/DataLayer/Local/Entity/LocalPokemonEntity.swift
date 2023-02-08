@@ -12,16 +12,25 @@ class LocalPokemonEntity: Object {
     @objc dynamic var id: String = ""
     @objc dynamic var name: String = ""
     @objc dynamic var image: String = ""
+    @objc dynamic var type: String = ""
+    @objc dynamic var ability: String = ""
+    @objc dynamic var weight: String = ""
 
     convenience init(
         id: String,
         name: String,
-        image: String
+        image: String,
+        type: String,
+        ability: String,
+        weight: String
     ) {
         self.init()
         self.id = id
         self.name = name
         self.image = image
+        self.type = type
+        self.ability = ability
+        self.weight = weight
     }
     
     override static func primaryKey() -> String? {
