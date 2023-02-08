@@ -24,7 +24,12 @@ extension Presentation.UiKit {
         
         private var vmBag = DisposeBag()
         
-        override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        private var viewModel: PokemonDetailViewModel
+        
+        var data: Domain.PokemonEntity?
+        
+        init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?, viewModel: PokemonDetailViewModel) {
+            self.viewModel = viewModel
             super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         }
         
@@ -35,9 +40,115 @@ extension Presentation.UiKit {
         override func viewDidLoad() {
             super.viewDidLoad()
             initDesign()
+            initEvents()
+        }
+        
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+
+            subscribeViewModel()
+        }
+        
+        override func viewDidAppear(_ animated: Bool) {
+            super.viewDidAppear(animated)
+            if let data = data {
+                showActivityIndicator()
+                viewModel.getPokemonDetail(byName: data.name)
+            }
+        }
+        
+        private func subscribeViewModel() {
+            viewModel.errors
+                .observeOn(MainScheduler.instance)
+                .subscribe(
+                    onNext: { [weak self] error in
+                        guard let self = self else {
+                            return
+                        }
+                        self.hideActivityIndicator()
+                        self.handleError(error)
+                    }
+                )
+                .disposed(by: vmBag)
+            viewModel
+                .pokemonData
+                .observeOn(MainScheduler.instance)
+                .subscribe(
+                    onNext: { [weak self] data in
+                        guard let self = self else {
+                            return
+                        }
+                        self.hideActivityIndicator()
+                        self.populateData(data)
+                    }
+                )
+                .disposed(by: vmBag)
+        }
+        
+        @objc
+        func onCatchTapped() {
+            if Bool.random() {
+                showCatchPopUp()
+            } else {
+                showRunPopUp()
+            }
         }
     }
 }
+
+// MARK: Function
+private extension Presentation.UiKit.PokemonDetailViewController {
+    func populateData(_ data: Domain.PokemonEntity) {
+        self.data = data
+        let url = URL(string: data.image)
+        ivContent?.sd_setImage(with: url)
+        lbName?.text = data.name
+        lbWeight?.text = "\(data.weight ?? "0") kg"
+        lbType?.text = data.types.joined(separator: ", ")
+        lbMove?.text = data.abilities.joined(separator: ", ")
+    }
+    
+    func showCatchPopUp() {
+        let alert = UIAlertController(title: "You Catch A Pokemon", message: "Please Enter Your Pokemon Name", preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            
+        }
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+            if let text = alert?.textFields?.first?.text {
+                if !text.isEmpty {
+                    self.insertPokemonToLocalDB(name: text)
+                } else {
+                    self.insertPokemonToLocalDB(name: self.data?.name ?? "Pokemon")
+                }
+            }
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showRunPopUp() {
+        let alert = UIAlertController(title: "The Pokemon is Run", message: "Try to catch the pokemon again", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+            alert?.removeFromParent()
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func insertPokemonToLocalDB(name: String) {
+        if var data = data {
+            data.name = name
+            viewModel.insetPokemonToLocal(data: data)
+        }
+    }
+}
+
+// MARK: Event
+private extension Presentation.UiKit.PokemonDetailViewController {
+    func initEvents() {
+        let tapCatchButton = UITapGestureRecognizer(target: self, action: #selector(onCatchTapped))
+        btCatch?.addGestureRecognizer(tapCatchButton)
+    }
+}
+
 
 // MARK: UIBUILDER
 private extension Presentation.UiKit.PokemonDetailViewController {
@@ -121,9 +232,7 @@ private extension Presentation.UiKit.PokemonDetailViewController {
     func generateContentImageView() -> UIImageView {
         let view = UIImageView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
-        let url = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png")
         view.sd_imageIndicator = SDWebImageActivityIndicator.gray
-        view.sd_setImage(with: url)
         return view
     }
     
@@ -134,7 +243,6 @@ private extension Presentation.UiKit.PokemonDetailViewController {
         view.textColor = .darkText
         view.numberOfLines = 0
         view.textAlignment = .left
-        view.text = "title"
         return view
     }
     
@@ -145,7 +253,6 @@ private extension Presentation.UiKit.PokemonDetailViewController {
         view.textColor = .darkText.withAlphaComponent(0.6)
         view.numberOfLines = 0
         view.textAlignment = .left
-        view.text = "subtitle"
         return view
     }
     

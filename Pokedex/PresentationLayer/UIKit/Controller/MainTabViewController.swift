@@ -61,12 +61,12 @@ private extension Presentation.UiKit.MainTabViewController {
 // MARK: DESIGN
 private extension Presentation.UiKit.MainTabViewController {
     func createHomeViewController() -> UIViewController {
-//        guard let vc = (UIApplication.shared.delegate as? ProvideViewControllerResolver)?.vcResolver.instantiateHomeViewController().get() else {
-//            fatalError("View Controller can't be nil: Home")
-//        }
+        guard let vc = (UIApplication.shared.delegate as? ProvideViewControllerResolver)?.vcResolver.instantiateHomeViewController().get() else {
+            fatalError("View Controller can't be nil: Home")
+        }
         // Create Tab one
         return createNavController(
-                for: Presentation.UiKit.HomeViewController(),
+                for: vc,
                 title: "Home",
                 navigationTitle: "Pokemon",
                 image: UIImage(systemName: "house"),
@@ -75,12 +75,12 @@ private extension Presentation.UiKit.MainTabViewController {
     }
     
     func createFavoriteViewController() -> UIViewController {
-//        guard let vc = (UIApplication.shared.delegate as? ProvideViewControllerResolver)?.vcResolver.instantiateFavoriteViewController().get() else {
-//            fatalError("View Controller can't be nil: Favorite")
-//        }
+        guard let vc = (UIApplication.shared.delegate as? ProvideViewControllerResolver)?.vcResolver.instantiateFavoriteViewController().get() else {
+            fatalError("View Controller can't be nil: Favorite")
+        }
         // Create Tab one
         return createNavController(
-                for: Presentation.UiKit.FavoriteViewContoller(),
+                for: vc,
                 title: "Favorite",
                 navigationTitle: "Your Pokemon",
                 image: UIImage(systemName: "heart"),

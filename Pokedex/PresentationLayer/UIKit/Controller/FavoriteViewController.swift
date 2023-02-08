@@ -14,8 +14,13 @@ import RxSwift
 extension Presentation.UiKit {
     class FavoriteViewContoller: UIViewController {
         private var tvContent: UITableView?
+        private var data: [Domain.PokemonEntity] = []
+        private var vmBag = DisposeBag()
         
-        override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        private var viewModel: FavoriteViewModel
+        
+        init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?, viewModel: FavoriteViewModel) {
+            self.viewModel = viewModel
             super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         }
         
@@ -28,6 +33,62 @@ extension Presentation.UiKit {
             initDesign()
             initViews()
         }
+
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+
+            subscribeViewModel()
+        }
+        
+        override func viewDidAppear(_ animated: Bool) {
+            super.viewDidAppear(animated)
+            fetchPokemon()
+        }
+        
+        private func subscribeViewModel() {
+            viewModel
+                .errors
+                .observeOn(MainScheduler.instance)
+                .subscribe(
+                    onNext: { [weak self] error in
+                        guard let self = self else {
+                            return
+                        }
+                        self.handleError(error)
+                    }
+                )
+                .disposed(by: vmBag)
+            viewModel
+                .pokemonLists
+                .observeOn(MainScheduler.instance)
+                .subscribe(
+                    onNext: { [weak self] data in
+                        guard let self = self else {
+                            return
+                        }
+                        self.initPokemonData(data)
+                    }
+                )
+                .disposed(by: vmBag)
+        }
+    }
+}
+
+// MARK: Function
+private extension Presentation.UiKit.FavoriteViewContoller {
+    func initPokemonData(_ datas: [Domain.PokemonEntity]) {
+        self.data =  datas
+        tvContent?.reloadData()
+    }
+    
+    func fetchPokemon() {
+        viewModel.getLocalPokemon()
+        tvContent?.reloadData()
+    }
+    
+    func deletePokemon(byId id: String) {
+        viewModel.deletePokemon(byId: id)
+        fetchPokemon()
     }
 }
 
@@ -83,7 +144,7 @@ extension Presentation.UiKit.FavoriteViewContoller: UITableViewDelegate, UITable
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        50
+        data.count
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -93,7 +154,13 @@ extension Presentation.UiKit.FavoriteViewContoller: UITableViewDelegate, UITable
             return UITableViewCell()
         }
         cell.selectionStyle = .none
-        cell.updateUI()
+        cell.updateUI(data: data[indexPath.row])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            if editingStyle == .delete {
+                deletePokemon(byId: data[indexPath.row].id)
+            }
     }
 }

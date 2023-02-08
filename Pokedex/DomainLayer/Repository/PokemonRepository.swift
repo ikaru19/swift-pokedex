@@ -9,6 +9,10 @@ import Foundation
 import RxSwift
 
 protocol PokemonRepository: AnyObject {
-    func getGame(byName: String) -> Single<Domain.PokemonEntity>
-    func getGameList(page: Int) -> Single<[Domain.PokemonEntity]>
+    func getPokemon(byName: String) -> Single<Domain.PokemonEntity>
+    func getPokemonList(page: Int) -> Single<[Domain.PokemonEntity]>
+    
+    func insertPokemonToLocal(data: Domain.PokemonEntity) -> Completable
+    func deletePokemon(byId: String) -> Completable
+    func fetchAllLocalPokemon() -> Single<[Domain.PokemonEntity]>
 }

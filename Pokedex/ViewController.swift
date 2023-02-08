@@ -19,7 +19,6 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         (UIApplication.shared.delegate as? ProvideInjectorResolver)?.injectorResolver.inject(self)
-        test()
         gotoMainPage()
     }
     
@@ -29,27 +28,9 @@ class ViewController: UIViewController {
     }
 
 
-    var data: PokemonRepository?
     func injectProperties(
-            viewController: TaggedProvider<MyBaseUrl>,
-            data: PokemonRepository?
+            viewController: TaggedProvider<MyBaseUrl>
     ){
-        self.data = data
-    }
-    
-    func test() {
-        data?
-            .getGameList(page: 0)
-            .subscribe(
-                onSuccess: {[weak self] data in
-                    print("38")
-                    print(data)
-                },
-                onError: {[weak self] error in
-                    print("42")
-                    print(error)
-                }
-            )
     }
 }
 

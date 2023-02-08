@@ -16,6 +16,7 @@ class PokemonTableCell: UITableViewCell {
     private var ivContent: UIImageView?
     private var lbName: UILabel?
     
+    private var data: Domain.PokemonEntity?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -33,9 +34,10 @@ class PokemonTableCell: UITableViewCell {
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
     }
     
-    func updateUI() {
-        lbName?.text = "bulbasaur"
-        let url = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png")
+    func updateUI(data: Domain.PokemonEntity) {
+        self.data = data
+        lbName?.text = data.name
+        let url = URL(string: data.image)
         ivContent?.sd_imageIndicator = SDWebImageActivityIndicator.gray
         ivContent?.sd_setImage(with: url)
     }
